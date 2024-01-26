@@ -1,14 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-#enum Direction {
-	#UP,
-	#DOWN,
-	#LEFT,
-	#RIGHT,
-#}
-
-
 @onready
 var animations = $AnimatedSprite2D
 @onready

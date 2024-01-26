@@ -25,7 +25,7 @@ func change_state(new_state: State) -> void:
 # handling state changes as needed.
 func process_physics(delta: float) -> void:
 	var new_state: State = current_state.process_physics(delta)
-	if new_state:
+	if new_state: 
 		change_state(new_state)
 		
 	# As a one-off comment: the above statement is equivalent to the verbose:
@@ -34,11 +34,11 @@ func process_physics(delta: float) -> void:
 	# i.e. we only change state if the new_state isn't a null.
 
 func process_input(event: InputEvent) -> void:
-	var new_state = current_state.process_input(event)
+	var new_state: State = current_state.process_input(event)
 	if new_state:
 		change_state(new_state)
 
 func process_frame(delta: float) -> void:
-	var new_state = current_state.process_frame(delta)
+	var new_state: State = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)

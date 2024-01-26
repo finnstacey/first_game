@@ -36,7 +36,7 @@ func get_animation_direction(dir: Vector2) -> Constants.Direction:
 		return Constants.Direction.DOWN
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed('attack'):
+	if event.is_action_pressed('attack'):
 		return attack_state
 	return null
 
@@ -50,7 +50,7 @@ func process_physics(_delta: float) -> State:
 		return idle_state
 	parent.dir = get_animation_direction(input)
 	
-	
+	# using enum matching but consider using dictionary
 	match parent.dir:
 		Constants.Direction.UP:
 			parent.animations.play("back_" + animation_name)

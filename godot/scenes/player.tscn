@@ -468,9 +468,10 @@ shape = SubResource("CircleShape2D_li8fp")
 script = ExtResource("3_70sr4")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
 script = ExtResource("4_a1gwj")
 walk_state = NodePath("../Walk")
+attack_state = NodePath("../Attack")
 animation_name = "idle"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "attack_state")]
@@ -479,8 +480,10 @@ idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 animation_name = "walk"
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
 script = ExtResource("6_mmm08")
+walk_state = NodePath("../Walk")
+attack_state = NodePath(".")
 
 [connection signal="area_entered" from="Hitbox" to="." method="on_enemy_enter_hitbox"]
 [connection signal="area_exited" from="Hitbox" to="." method="on_enemy_exit_hitbox"]
