@@ -11,19 +11,6 @@ const move_actions = [
 	'move_up',
 	'move_down',
 ]
-
-func get_direction_as_string(dir: Constants.Direction) -> String:
-	match dir:
-		Constants.Direction.UP:
-			return "back"
-		Constants.Direction.DOWN:
-			return "front"
-		Constants.Direction.LEFT:
-			return "side"
-		Constants.Direction.RIGHT:
-			return "side"
-		_:
-			return "side"
 			
 func get_animation_direction(dir: Vector2) -> Constants.Direction:
 	if dir.x > 0.0:
@@ -41,10 +28,6 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
-	
-	#var input_h: float = Input.get_axis('move_left', 'move_right')
-	#var input_v: float = Input.get_axis('move_up', 'move_down')
-	#var dir: Vector2 = Vector2(input_h, input_v).normalized()
 	var input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input.is_zero_approx():
 		return idle_state
