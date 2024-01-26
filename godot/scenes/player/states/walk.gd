@@ -33,19 +33,21 @@ func process_physics(_delta: float) -> State:
 		return idle_state
 	parent.dir = get_animation_direction(input)
 	
-	# using enum matching but consider using dictionary
-	match parent.dir:
-		Constants.Direction.UP:
-			parent.animations.play("back_" + animation_name)
-		Constants.Direction.DOWN:
-			parent.animations.play("front_" + animation_name)
-		Constants.Direction.RIGHT:
-			parent.animations.play("side_" + animation_name)
-			parent.animations.flip_h = false
-		Constants.Direction.LEFT:
-			parent.animations.play("side_" + animation_name)
-			parent.animations.flip_h = true
+	# only animate walk if attack animation has finished
+	if !parent.animations.get("animation").contains("attack"):
+		match parent.dir:
+			Constants.Direction.UP:
+				parent.animations.play("back_" + animation_name)
+			Constants.Direction.DOWN:
+				parent.animations.play("front_" + animation_name)
+			Constants.Direction.RIGHT:
+				parent.animations.play("side_" + animation_name)
+				parent.animations.flip_h = false
+			Constants.Direction.LEFT:
+				parent.animations.play("side_" + animation_name)
+				parent.animations.flip_h = true
 	
+	# we can walk and attack
 	parent.velocity = input.normalized() * move_speed
 	parent.move_and_slide()
 	
