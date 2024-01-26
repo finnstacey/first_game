@@ -5,6 +5,7 @@ var walk_state: State
 @export
 var attack_state: State
 
+# Defined directions (should be refactored in-line with walk.gd)
 const move_actions = [
 	'move_left',
 	'move_right',

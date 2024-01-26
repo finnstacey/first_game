@@ -27,6 +27,11 @@ func process_physics(delta: float) -> void:
 	var new_state: State = current_state.process_physics(delta)
 	if new_state:
 		change_state(new_state)
+		
+	# As a one-off comment: the above statement is equivalent to the verbose:
+	# if new_state != null:
+	#	change_state(new_state)
+	# i.e. we only change state if the new_state isn't a null.
 
 func process_input(event: InputEvent) -> void:
 	var new_state = current_state.process_input(event)
