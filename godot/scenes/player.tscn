@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ng63m"]
 [ext_resource type="Texture2D" uid="uid://p5pd2kw2dp2g" path="res://art/characters/player.png" id="1_qarnk"]
-[ext_resource type="Script" path="res://scenes/state_machine/state_machine.gd" id="3_70sr4"]
-[ext_resource type="Script" path="res://scenes/player/states/idle.gd" id="4_a1gwj"]
-[ext_resource type="Script" path="res://scenes/player/states/walk.gd" id="5_co8hh"]
-[ext_resource type="Script" path="res://scenes/player/states/attack.gd" id="6_mmm08"]
+[ext_resource type="Script" path="res://scenes/player/state_machine.gd" id="3_h863f"]
+[ext_resource type="Script" path="res://scenes/player/idle.gd" id="4_noq5u"]
+[ext_resource type="Script" path="res://scenes/enemy/walk.gd" id="5_b7qr2"]
+[ext_resource type="Script" path="res://scenes/player/attack.gd" id="6_1lvsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1byay"]
 size = Vector2(8, 5)
@@ -428,6 +428,7 @@ radius = 21.095
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 3
+motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_ng63m")
 
@@ -465,23 +466,23 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_li8fp")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("3_70sr4")
+script = ExtResource("3_h863f")
 starting_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
-script = ExtResource("4_a1gwj")
+script = ExtResource("4_noq5u")
 walk_state = NodePath("../Walk")
 attack_state = NodePath("../Attack")
 animation_name = "idle"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "attack_state")]
-script = ExtResource("5_co8hh")
+script = ExtResource("5_b7qr2")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 animation_name = "walk"
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
-script = ExtResource("6_mmm08")
+script = ExtResource("6_1lvsh")
 walk_state = NodePath("../Walk")
 attack_state = NodePath(".")
 

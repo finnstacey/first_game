@@ -1,6 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cili38is0cvjo"]
+[gd_scene load_steps=26 format=3 uid="uid://cili38is0cvjo"]
 
+[ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_1pwa1"]
 [ext_resource type="Texture2D" uid="uid://cr3m3pgb0b4gl" path="res://art/characters/slime.png" id="1_fyd1t"]
+[ext_resource type="Script" path="res://scenes/enemy/state_machine.gd" id="3_n76lp"]
+[ext_resource type="Script" path="res://scenes/enemy/idle.gd" id="4_nni6a"]
+[ext_resource type="Script" path="res://scenes/enemy/walk.gd" id="5_beund"]
+[ext_resource type="Script" path="res://scenes/enemy/attack.gd" id="6_wmtb0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hvpin"]
 atlas = ExtResource("1_fyd1t")
@@ -134,11 +139,11 @@ size = Vector2(11, 6.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_51wkr"]
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_1pwa1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j7w01")
 animation = &"idle"
-frame_progress = 0.965296
 offset = Vector2(0, -4)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -174,5 +179,27 @@ process_callback = 0
 one_shot = true
 autostart = true
 
-[connection signal="body_entered" from="DetectionArea" to="." method="on_player_entered_detection_area"]
-[connection signal="body_exited" from="DetectionArea" to="." method="on_player_exited_detection_area"]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_n76lp")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
+script = ExtResource("4_nni6a")
+walk_state = NodePath("../Walk")
+attack_state = NodePath("../Attack")
+animation_name = "idle"
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "attack_state")]
+script = ExtResource("5_beund")
+idle_state = NodePath("../Idle")
+attack_state = NodePath("../Attack")
+animation_name = "walk"
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
+script = ExtResource("6_wmtb0")
+walk_state = NodePath("../Walk")
+attack_state = NodePath(".")
+animation_name = "attack"
+
+[connection signal="body_entered" from="DetectionArea" to="StateMachine/Idle" method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="StateMachine/Walk" method="_on_detection_area_body_exited"]
