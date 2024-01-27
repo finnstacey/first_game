@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ng63m"]
 [ext_resource type="Texture2D" uid="uid://p5pd2kw2dp2g" path="res://art/characters/player.png" id="1_qarnk"]
-[ext_resource type="Script" path="res://scenes/player/state_machine.gd" id="3_h863f"]
+[ext_resource type="Script" path="res://scenes/state_machine/state_machine.gd" id="3_70sr4"]
 [ext_resource type="Script" path="res://scenes/player/idle.gd" id="4_noq5u"]
-[ext_resource type="Script" path="res://scenes/enemy/walk.gd" id="5_b7qr2"]
+[ext_resource type="Script" path="res://scenes/player/walk.gd" id="5_mwgkw"]
 [ext_resource type="Script" path="res://scenes/player/attack.gd" id="6_1lvsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1byay"]
@@ -466,7 +466,7 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_li8fp")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("3_h863f")
+script = ExtResource("3_70sr4")
 starting_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
@@ -476,7 +476,7 @@ attack_state = NodePath("../Attack")
 animation_name = "idle"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "attack_state")]
-script = ExtResource("5_b7qr2")
+script = ExtResource("5_mwgkw")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 animation_name = "walk"
@@ -485,6 +485,7 @@ animation_name = "walk"
 script = ExtResource("6_1lvsh")
 walk_state = NodePath("../Walk")
 attack_state = NodePath(".")
+animation_name = "attack"
 
 [connection signal="area_entered" from="Hitbox" to="." method="on_enemy_enter_hitbox"]
 [connection signal="area_exited" from="Hitbox" to="." method="on_enemy_exit_hitbox"]

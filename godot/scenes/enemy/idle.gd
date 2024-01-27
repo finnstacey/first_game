@@ -15,6 +15,11 @@ func process_input(event: InputEvent) -> State:
 func process_physics(_delta: float) -> State:
 	return null
 
+func process_frame(_delta: float) -> State:
+	if parent.player_chase:
+		return walk_state
+	return null
+
 func _on_detection_area_body_entered(body: Player) -> void:
 	parent.player_chase = body
 	

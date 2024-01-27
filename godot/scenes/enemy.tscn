@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_1pwa1"]
 [ext_resource type="Texture2D" uid="uid://cr3m3pgb0b4gl" path="res://art/characters/slime.png" id="1_fyd1t"]
-[ext_resource type="Script" path="res://scenes/enemy/state_machine.gd" id="3_n76lp"]
+[ext_resource type="Script" path="res://scenes/state_machine/state_machine.gd" id="2_8to1q"]
 [ext_resource type="Script" path="res://scenes/enemy/idle.gd" id="4_nni6a"]
 [ext_resource type="Script" path="res://scenes/enemy/walk.gd" id="5_beund"]
 [ext_resource type="Script" path="res://scenes/enemy/attack.gd" id="6_wmtb0"]
@@ -180,7 +180,7 @@ one_shot = true
 autostart = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("3_n76lp")
+script = ExtResource("2_8to1q")
 starting_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
@@ -194,6 +194,7 @@ script = ExtResource("5_beund")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 animation_name = "walk"
+move_speed = 30.0
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
 script = ExtResource("6_wmtb0")
