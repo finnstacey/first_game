@@ -30,7 +30,7 @@ func enter() -> void:
 	parent.animations.play(get_direction_as_string(parent.dir) + "_idle")
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed('attack'):
+	if event.is_action_pressed("attack"):
 		return attack_state
 	
 	for action in move_actions:

@@ -29,10 +29,10 @@ func process_physics(_delta: float) -> State:
 				parent.animations.flip_h = true
 	
 	parent.velocity = velocity
-	parent.move_and_slide()
+	parent.move_and_collide(chase_dir)
 	
 	return null
 
 
-func _on_detection_area_body_exited(body: Player) -> void:
+func _on_detection_area_body_exited(_body: Player) -> void:
 	parent.player_chase = null

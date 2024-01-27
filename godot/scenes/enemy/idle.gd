@@ -6,10 +6,9 @@ var walk_state: State
 var attack_state: State
 
 func enter() -> void:
-	print("Entered")
 	parent.animations.play(animation_name)
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
