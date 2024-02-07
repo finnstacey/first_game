@@ -442,7 +442,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qwjv5")
 animation = &"front_attack"
-frame_progress = 0.426385
+frame_progress = 0.047717
 offset = Vector2(0, -15)
 
 [node name="Hitbox" type="Area2D" parent="."]

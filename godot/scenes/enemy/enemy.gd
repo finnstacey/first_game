@@ -6,8 +6,10 @@ var animations = $AnimatedSprite2D
 @onready
 var state_machine = $StateMachine
 var player_chase: Player
+
 # Storing direction so that idle can return to the correct direction.
 var dir = Constants.Direction.LEFT
+
 @export
 var health: float = 100.0
 

@@ -10,6 +10,9 @@ var attack_range = $AttackRange
 @onready
 var attack_timer = $AttackTimer
 
+@export
+var attack_cooldown: float = 1.0
+
 signal enemy_hit
 
 # Storing direction so that idle can return to the correct direction.
@@ -25,8 +28,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
-	print(attack_timer.time_left)
 
 func _process(delta: float) -> void:
-	#print(animations.get("animation"), " ", animations.get("frame_progress"))
 	state_machine.process_frame(delta)

@@ -39,7 +39,7 @@ func enter() -> void:
 		var enemy_hitboxes: Array[Area2D] = parent.attack_range.get_overlapping_areas()
 		for body in enemy_hitboxes:
 			body.get_parent().emit_signal("hit")
-		parent.attack_timer.start(5)
+		parent.attack_timer.start(parent.attack_cooldown)
 	else:
 		attack_finished = true
 		
@@ -54,11 +54,7 @@ func process_frame(_delta: float) -> State:
 	if attack_finished:
 		attack_finished = false
 		return walk_state
-
-	#var frame: int = parent.animations.get_frame()
-	#var frame_progress: float = parent.animations.get_frame_progress()
 	var input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
 	if not input.is_zero_approx():
 		parent.dir = get_animation_direction(input)
 	
@@ -73,6 +69,3 @@ func _on_animated_sprite_2d_animation_looped() -> void:
 		attack_finished = true
 	pass
 
-
-func _on_attack_range_body_entered(body: Node2D) -> void:
-	pass

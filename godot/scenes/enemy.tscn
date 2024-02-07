@@ -144,7 +144,7 @@ script = ExtResource("1_1pwa1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j7w01")
 animation = &"death"
-frame_progress = 0.104136
+frame_progress = 0.399675
 offset = Vector2(0, -4)
 
 [node name="DetectionArea" type="Area2D" parent="."]

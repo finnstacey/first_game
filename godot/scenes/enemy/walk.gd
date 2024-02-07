@@ -19,7 +19,7 @@ func process_physics(_delta: float) -> State:
 	parent.dir = get_animation_direction(chase_dir)
 	
 	# only animate walk if attack animation has finished
-	if !parent.animations.get("animation").contains("attack"):
+	if !parent.animations.get_animation().contains("attack"):
 		match parent.dir:
 			Constants.Direction.RIGHT:
 				parent.animations.play(animation_name)
