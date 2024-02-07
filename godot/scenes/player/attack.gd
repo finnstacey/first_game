@@ -3,7 +3,7 @@ extends State
 @export
 var walk_state: State
 @export
-var attack_state: State
+var idle_state: State
 
 var attack_finished: bool = false
 
@@ -32,10 +32,17 @@ func get_animation_direction(dir: Vector2) -> Constants.Direction:
 
 func enter() -> void:
 	# TODO: here to decide whether we should be in the attack state (are we on cooldown)
-	parent.animations.play(get_direction_as_string(parent.dir) + "_" + animation_name)
-	var enemy_hitboxes: Array[Area2D] = parent.attack_range.get_overlapping_areas()
-	for body in enemy_hitboxes:
-		body.get_parent().emit_signal("hit")
+	#print(parent.attack_timer.is_stopped())
+	#print(parent.attack_timer.get_time_left())
+	if parent.attack_timer.is_stopped():
+		parent.animations.play(get_direction_as_string(parent.dir) + "_" + animation_name)
+		var enemy_hitboxes: Array[Area2D] = parent.attack_range.get_overlapping_areas()
+		for body in enemy_hitboxes:
+			body.get_parent().emit_signal("hit")
+		parent.attack_timer.start(5)
+	else:
+		attack_finished = true
+		
 
 func process_input(event: InputEvent) -> State:
 	return null
@@ -47,8 +54,9 @@ func process_frame(_delta: float) -> State:
 	if attack_finished:
 		attack_finished = false
 		return walk_state
-	var frame: int = parent.animations.get_frame()
-	var frame_progress: float = parent.animations.get_frame_progress()
+
+	#var frame: int = parent.animations.get_frame()
+	#var frame_progress: float = parent.animations.get_frame_progress()
 	var input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
 	if not input.is_zero_approx():

@@ -7,6 +7,8 @@ var animations = $AnimatedSprite2D
 var state_machine = $StateMachine
 @onready
 var attack_range = $AttackRange
+@onready
+var attack_timer = $AttackTimer
 
 signal enemy_hit
 
@@ -23,6 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	print(attack_timer.time_left)
 
 func _process(delta: float) -> void:
 	#print(animations.get("animation"), " ", animations.get("frame_progress"))

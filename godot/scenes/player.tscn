@@ -442,7 +442,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qwjv5")
 animation = &"front_attack"
-frame_progress = 0.621461
+frame_progress = 0.426385
 offset = Vector2(0, -15)
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -454,7 +454,7 @@ collision_mask = 4
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_mujm2")
 
-[node name="AttackCooldown" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
@@ -481,10 +481,10 @@ idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 animation_name = "walk"
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "attack_state")]
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "idle_state")]
 script = ExtResource("6_1lvsh")
 walk_state = NodePath("../Walk")
-attack_state = NodePath(".")
+idle_state = NodePath("../Idle")
 animation_name = "attack"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
