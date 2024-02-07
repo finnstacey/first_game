@@ -5,6 +5,10 @@ extends CharacterBody2D
 var animations = $AnimatedSprite2D
 @onready
 var state_machine = $StateMachine
+@onready
+var attack_range = $AttackRange
+
+signal enemy_hit
 
 # Storing direction so that idle can return to the correct direction.
 var dir = Constants.Direction.DOWN
@@ -21,4 +25,5 @@ func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
+	#print(animations.get("animation"), " ", animations.get("frame_progress"))
 	state_machine.process_frame(delta)

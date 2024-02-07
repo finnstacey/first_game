@@ -441,8 +441,8 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qwjv5")
-animation = &"side_attack"
-frame_progress = 0.515068
+animation = &"front_attack"
+frame_progress = 0.621461
 offset = Vector2(0, -15)
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -487,7 +487,10 @@ walk_state = NodePath("../Walk")
 attack_state = NodePath(".")
 animation_name = "attack"
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="StateMachine/Attack" method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="area_entered" from="Hitbox" to="." method="on_enemy_enter_hitbox"]
 [connection signal="area_exited" from="Hitbox" to="." method="on_enemy_exit_hitbox"]
 [connection signal="body_entered" from="Hitbox" to="." method="on_enemy_enter_hitbox"]
 [connection signal="body_exited" from="Hitbox" to="." method="on_enemy_exit_hitbox"]
+[connection signal="body_entered" from="AttackRange" to="StateMachine/Attack" method="_on_attack_range_body_entered"]

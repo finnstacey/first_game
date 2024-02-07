@@ -32,11 +32,13 @@ func enter() -> void:
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("attack"):
 		return attack_state
-	
-	for action in move_actions:
-		if event.is_action_pressed(action, false, true):
-			return walk_state
 	return null
 
+func process_frame(_delta: float) -> State:
+	for action in move_actions:
+		if Input.is_action_pressed(action):
+			return walk_state
+	return null
+	
 func process_physics(_delta: float) -> State:
 	return null

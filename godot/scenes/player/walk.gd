@@ -5,11 +5,11 @@ var idle_state: State
 @export
 var attack_state: State
 
-const move_actions = [
-	'move_left',
-	'move_right',
-	'move_up',
-	'move_down',
+const move_actions: PackedStringArray = [
+	StringName('move_left'),
+	StringName('move_right'),
+	StringName('move_up'),
+	StringName('move_down'),
 ]
 			
 func get_animation_direction(dir: Vector2) -> Constants.Direction:
@@ -31,10 +31,11 @@ func process_physics(_delta: float) -> State:
 	var input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input.is_zero_approx():
 		return idle_state
+
 	parent.dir = get_animation_direction(input)
 	
 	# only animate walk if attack animation has finished
-	if !parent.animations.get("animation").contains("attack"):
+	if not parent.animations.get_animation().ends_with("attack") or (not parent.animations.is_playing() && parent.animations.get_animation().ends_with("attack")):
 		match parent.dir:
 			Constants.Direction.UP:
 				parent.animations.play("back_" + animation_name)
